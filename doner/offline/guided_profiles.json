@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "mode": "offline_fixed_text_and_synthetic_morphology_guided_SDXL",
+  "native_noise_size": 256,
+  "render_size": 1024,
+  "scale_mapping": "Independent random256 guide -> nearest1024 -> SDXL -> area256; HQ/real source images are never resized by this operation.",
+  "datasets": {
+    "ir": {
+      "dataset_id": "ir_hq50",
+      "domain": "ir",
+      "train_seeds_per_pattern": 12,
+      "validation_seeds_per_pattern": 4,
+      "strength": 0.12,
+      "families": [
+        {
+          "id": "fine_grain",
+          "kind": "grain",
+          "options": {
+            "grain_std": 0.055,
+            "local_variation": 0.15
+          },
+          "prompt": "Flat grayscale infrared detector residual map. Weak fine irregular bright and dark pixel fluctuations, uniform neutral field, no scene or objects."
+        },
+        {
+          "id": "correlated_grain",
+          "kind": "grain",
+          "options": {
+            "grain_std": 0.055,
+            "grain_correlation": 0.6,
+            "local_variation": 0.3
+          },
+          "prompt": "Flat grayscale infrared detector residual map. Fine irregular bright and dark fluctuations with short range spatial correlation and uneven local strength, no coherent objects or repeating patterns."
+        },
+        {
+          "id": "variable_columns",
+          "kind": "column_bands",
+          "options": {
+            "width_px": [
+              1,
+              3
+            ],
+            "line_variation": 0.45,
+            "grain_std": 0.004
+          },
+          "prompt": "Flat grayscale infrared detector residual map. Irregular narrow vertical bright and dark column bands with unequal widths and varying intensity along columns, no scene."
+        },
+        {
+          "id": "intermittent_columns",
+          "kind": "short_streaks",
+          "options": {
+            "axis": "column",
+            "length_px": [
+              32,
+              128
+            ],
+            "width_px": [
+              1,
+              2
+            ],
+            "events_per_128": 3
+          },
+          "prompt": "Flat grayscale infrared detector residual map. Sparse finite straight vertical bright and dark column streaks with distinct endpoints and uneven lengths, neutral background, no objects."
+        },
+        {
+          "id": "variable_rows",
+          "kind": "row_bands",
+          "options": {
+            "width_px": [
+              1,
+              3
+            ],
+            "line_variation": 0.45,
+            "grain_std": 0.004
+          },
+          "prompt": "Flat grayscale infrared detector residual map. Irregular narrow horizontal bright and dark row bands, unequal widths, intensity varies along each row, no scene."
+        },
+        {
+          "id": "smooth_offset",
+          "kind": "smooth",
+          "options": {
+            "envelope_grid": 8,
+            "grain_std": 0.003
+          },
+          "prompt": "Flat grayscale infrared detector offset residual. Soft irregular smoothly varying brightness without sharp boundaries, neutral field, no objects or scene."
+        },
+        {
+          "id": "grain_columns",
+          "kind": "column_bands",
+          "options": {
+            "width_px": [
+              1,
+              2
+            ],
+            "line_variation": 0.4,
+            "grain_std": 0.03
+          },
+          "prompt": "Flat grayscale infrared detector residual map. Fine irregular bright and dark grains mixed with thin uneven vertical column bands, varying local strength, no objects or repeated grid."
+        },
+        {
+          "id": "heterogeneous_grain",
+          "kind": "grain",
+          "options": {
+            "grain_std": 0.055,
+            "local_variation": 0.55
+          },
+          "prompt": "Flat grayscale infrared detector residual. Fine irregular bright and dark pixel fluctuations with noisy and quiet regions, slowly varying local strength, no edges or coherent shapes."
+        }
+      ],
+      "training_manifest": "ir_hq_train50.jsonl",
+      "parameter_status": "Morphology-informed engineering ranges, not sensor calibration or dataset-wide noise fit."
+    },
+    "stm": {
+      "dataset_id": "stm_hq50",
+      "domain": "stm",
+      "train_seeds_per_pattern": 12,
+      "validation_seeds_per_pattern": 4,
+      "strength": 0.12,
+      "families": [
+        {
+          "id": "scan_rows_thin",
+          "kind": "scan_bands",
+          "options": {
+            "width_px": [
+              1,
+              1
+            ],
+            "line_variation": 0.45,
+            "grain_std": 0.004
+          },
+          "prompt": "Flat grayscale STM acquisition residual. Thin irregular horizontal bright and dark scan lines, nonperiodic row offsets and varying intensity along each line, no atoms or lattice."
+        },
+        {
+          "id": "scan_rows_variable",
+          "kind": "scan_bands",
+          "options": {
+            "width_px": [
+              1,
+              3
+            ],
+            "line_variation": 0.6,
+            "grain_std": 0.006
+          },
+          "prompt": "Flat grayscale STM acquisition residual. Horizontal bright and dark scan bands with uneven narrow widths, irregular spacing and varying intensity along each row, no sample structure."
+        },
+        {
+          "id": "short_streaks_sparse",
+          "kind": "short_streaks",
+          "options": {
+            "length_px": [
+              16,
+              48
+            ],
+            "width_px": [
+              1,
+              1
+            ],
+            "events_per_128": 3
+          },
+          "prompt": "Flat grayscale STM acquisition residual. Sparse isolated thin horizontal bright and dark short scan streaks with distinct local endpoints, irregular positions and lengths, neutral background, no atoms."
+        },
+        {
+          "id": "short_streaks_mixed",
+          "kind": "short_streaks",
+          "options": {
+            "length_px": [
+              16,
+              48
+            ],
+            "width_px": [
+              1,
+              3
+            ],
+            "events_per_128": 8
+          },
+          "prompt": "Flat grayscale STM acquisition residual. Isolated short horizontal bright and dark scan streaks of mixed thin widths and finite lengths, irregular sparse groups and quiet gaps, no objects."
+        },
+        {
+          "id": "fine_grain",
+          "kind": "grain",
+          "options": {
+            "grain_std": 0.055,
+            "grain_correlation": 0,
+            "local_variation": 0.2
+          },
+          "prompt": "Flat grayscale STM electronic residual. Fine irregular bright and dark pixel fluctuations over a neutral field, no atoms, lattice, rings or sample structure."
+        },
+        {
+          "id": "correlated_grain",
+          "kind": "grain",
+          "options": {
+            "grain_std": 0.055,
+            "grain_correlation": 0.6,
+            "local_variation": 0.35
+          },
+          "prompt": "Flat grayscale STM electronic residual. Fine irregular bright and dark fluctuations with short range spatial correlation, uneven local strength, no atoms, lattice, rings or coherent objects."
+        },
+        {
+          "id": "grain_short_streaks",
+          "kind": "grain_streaks",
+          "options": {
+            "length_px": [
+              16,
+              48
+            ],
+            "width_px": [
+              1,
+              2
+            ],
+            "events_per_128": 5,
+            "grain_std": 0.018
+          },
+          "prompt": "Flat grayscale STM acquisition residual. Fine irregular bright and dark grain mixed with sparse thin short horizontal scan streaks, distinct endpoints, no lattice or sample structures."
+        },
+        {
+          "id": "grain_scan_rows",
+          "kind": "scan_bands",
+          "options": {
+            "width_px": [
+              1,
+              2
+            ],
+            "line_variation": 0.45,
+            "grain_std": 0.03
+          },
+          "prompt": "Flat grayscale STM acquisition residual. Fine irregular bright and dark grain mixed with thin nonperiodic horizontal scan bands, varying intensity along lines, no atoms or lattice."
+        }
+      ],
+      "training_manifest": "stm_hq_train50.jsonl",
+      "parameter_status": "Morphology-informed engineering ranges, not sensor calibration or dataset-wide noise fit."
+    }
+  }
+}

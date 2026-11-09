@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "dataset_id": "hagen_confocal_128",
+  "domain": "hagen",
+  "geometry": [
+    128,
+    128
+  ],
+  "generation_grid": [
+    1024,
+    1024
+  ],
+  "model_id": "stabilityai/stable-diffusion-xl-base-1.0",
+  "model_revision": "462165984030d82259a11f4367a4eed129e94a7b",
+  "train_seeds": 4,
+  "holdout_seeds": 2,
+  "steps": 30,
+  "strength": 0.12,
+  "guidance": 3.0,
+  "negative_prompt": "cells, membranes, actin filaments, mitochondria, tubular structures, branching fibers, smooth blobs, coherent edges, scratches, continuous lines, broad bands, column stripes, periodic grids, optical speckle, salt and pepper, text, labels, color, lighting gradients",
+  "prompt_basis": "Independent qualitative inspection of four preassigned calibration fields, both channels; no validation or confirmation images or scores used. No measured noise parameters or residual pixels fitted for training.",
+  "descriptions_rewritten_for_confocal": true,
+  "previous_domain_prompts_reused": false,
+  "analytic_rule_basis": "Predeclared uncalibrated counting plus signal-independent fluctuation ranges; T2I supplies the spatial spectrum. These ranges are not identified detector settings.",
+  "training_rms_bins": [
+    [
+      0.003,
+      0.05
+    ],
+    [
+      0.05,
+      0.12
+    ],
+    [
+      0.12,
+      0.25
+    ]
+  ],
+  "training_rms_bin_weights": [
+    0.45,
+    0.3,
+    0.25
+  ],
+  "family_weights": [
+    0.3,
+    0.3,
+    0.15,
+    0.25
+  ],
+  "families": [
+    {
+      "name": "fine_grain",
+      "kind": "grain",
+      "axis": "none",
+      "prompt": "Grayscale flat-field noise texture from laser-scanning fluorescence imaging, centered on neutral gray. Dense irregular fine bright and dark grains, random amplitudes and positions, mostly pixel-scale fluctuations, no coherent shapes.",
+      "description_zh": "密集、无规则的细小明暗颗粒，位置随机、幅度不一，主要集中在最细的可见空间尺度。不形成有组织的边缘或长程方向纹理，表现为局部均匀荧光条件下受光子统计影响的颗粒起伏，而不是荧光样本图像。",
+      "guide_options": {
+        "innovation": "gaussian",
+        "grain_std": 0.055,
+        "local_variation": 0.1,
+        "horizontal_neighbor_correlation": 0.05
+      },
+      "sampling": {
+        "photon_gain": [
+          0.001,
+          0.01
+        ],
+        "background_count_level": [
+          0.001,
+          0.01
+        ],
+        "read_std": [
+          0.001,
+          0.004
+        ]
+      }
+    },
+    {
+      "name": "short_correlated_grain",
+      "kind": "grain",
+      "axis": "none",
+      "prompt": "Grayscale flat-field fluorescence noise on neutral gray. Fine irregular grains with weak correlation between immediate neighbors and slight horizontal elongation over a few pixels. Random nonperiodic texture, no continuous lines, no specimen structures.",
+      "description_zh": "细小、不规则的颗粒起伏，相邻位置之间具有较弱的短程相关；部分微小颗粒略沿水平方向延展，但整体保持随机且不周期重复。相关仅限于局部邻域，不形成连续横线、宽条带、列条纹或划痕。",
+      "guide_options": {
+        "innovation": "gaussian",
+        "grain_std": 0.055,
+        "local_variation": 0.15,
+        "horizontal_neighbor_correlation": 0.3
+      },
+      "sampling": {
+        "photon_gain": [
+          0.003,
+          0.03
+        ],
+        "background_count_level": [
+          0.001,
+          0.01
+        ],
+        "read_std": [
+          0.002,
+          0.007
+        ]
+      }
+    },
+    {
+      "name": "low_count_background",
+      "kind": "grain",
+      "axis": "none",
+      "prompt": "Grayscale flat-field fluorescence noise around neutral gray. Weak granular background with sparse irregular bright microfluctuations and subtle fine random variations between them. Tiny random events with varied amplitudes, no binary impulses, no coherent shapes.",
+      "description_zh": "较弱且近似均匀的颗粒背景，其间散布稀疏、不规则的微小亮起伏，并叠加细微随机变化。事件幅度各异，不是黑白二值脉冲，不产生平滑的细胞状斑块、稳定生物亮点或重复图案。",
+      "guide_options": {
+        "innovation": "poisson_gaussian",
+        "poisson_lambda": 0.15,
+        "readout_std": 0.08,
+        "grain_std": 0.045,
+        "local_variation": 0.1,
+        "horizontal_neighbor_correlation": 0.1
+      },
+      "sampling": {
+        "photon_gain": [
+          0.025,
+          0.1
+        ],
+        "background_count_level": [
+          0.0005,
+          0.003
+        ],
+        "read_std": [
+          0.001,
+          0.006
+        ]
+      }
+    }
+  ],
+  "mixed_family": {
+    "name": "mixed_grain",
+    "components": [
+      "fine_grain",
+      "short_correlated_grain",
+      "low_count_background"
+    ],
+    "weights": "Dirichlet(2,2,2), shared within positive pairs"
+  },
+  "excluded_as_unsupported_main_patterns": [
+    "strong scan stripes",
+    "column offsets",
+    "finite scratches",
+    "missing scan lines",
+    "periodic grids"
+  ],
+  "physical_component_identification": "Not inferred from appearance alone; shapes are observed, physical count/readout decomposition is a modeling assumption.",
+  "primary_sources": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8099770/",
+      "supports": "Hagen Dataset 4: Leica SP5 laser-scanning confocal, laser-power/detector-gain settings, actin/mitochondrial labels."
+    },
+    {
+      "url": "https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhang_A_Poisson-Gaussian_Denoising_Dataset_With_Real_Fluorescence_Microscopy_Images_CVPR_2019_paper.pdf",
+      "supports": "General fluorescence shot-noise and Poisson-Gaussian modeling motivation; not a proof that Hagen residuals exactly obey that model."
+    },
+    {
+      "url": "https://www.leica-microsystems.com/science-lab/life-science/which-sensor-is-the-best-for-confocal-imaging/",
+      "supports": "Confocal detector noise and detector-dependent statistics; do not mislabel the Hagen SP5 data as sCMOS camera noise."
+    }
+  ]
+}

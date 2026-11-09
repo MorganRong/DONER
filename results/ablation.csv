@@ -1,0 +1,19 @@
+domain,strength,variant,psnr_db,ssim
+simulated_stm,0.05,w/o T2I,32.42,0.8911
+simulated_stm,0.10,w/o T2I,27.08,0.7788
+simulated_stm,0.20,w/o T2I,21.56,0.6148
+simulated_stm,0.05,w/o CL,38.80,0.9324
+simulated_stm,0.10,w/o CL,34.69,0.9158
+simulated_stm,0.20,w/o CL,28.41,0.8885
+simulated_stm,0.05,Full DONER,42.57,0.9923
+simulated_stm,0.10,Full DONER,38.20,0.9836
+simulated_stm,0.20,Full DONER,33.13,0.9565
+infrared,0.05,w/o T2I,32.56,0.8729
+infrared,0.10,w/o T2I,27.87,0.7698
+infrared,0.20,w/o T2I,22.46,0.5834
+infrared,0.05,w/o CL,33.94,0.9088
+infrared,0.10,w/o CL,30.14,0.8785
+infrared,0.20,w/o CL,24.84,0.7279
+infrared,0.05,Full DONER,36.04,0.9482
+infrared,0.10,Full DONER,32.19,0.9068
+infrared,0.20,Full DONER,27.94,0.8290

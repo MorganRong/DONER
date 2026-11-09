@@ -1,0 +1,5 @@
+domain,protocol,archived_cases,fresh_cases,unique_reference_ids,exact_case_id_set_match,byte_identical_predictions
+stm,synthetic,1200,1200,50,True,1200
+ir,synthetic,1200,1200,50,True,1200
+confocal,synthetic,600,600,50,True,0
+confocal,measured_pair,50,50,50,True,0

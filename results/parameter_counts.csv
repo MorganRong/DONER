@@ -1,0 +1,7 @@
+method,denoiser_parameters,offline_t2i_parameters
+DEAL,572323,0
+RNINet,11565953,0
+CLIPDenoising,34515043,0
+IDF,49021,0
+CENSURE,17008256,0
+DONER,5623796,3468837867

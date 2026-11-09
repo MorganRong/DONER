@@ -1,0 +1,23 @@
+{
+  "learning_rate": 0.0003,
+  "min_learning_rate": 3e-05,
+  "weight_decay": 0.0001,
+  "contrast_weight": 0.05,
+  "statistics_weight": 0.1,
+  "identity_weight": 1.0,
+  "response_weight": 0.1,
+  "fidelity_every": 4,
+  "gradient_clip_norm": 1.0,
+  "gradient_audit_steps": [
+    1,
+    256,
+    1024,
+    2048,
+    2049,
+    2304,
+    4096,
+    21000
+  ],
+  "stripe_teacher_weight": 2.0,
+  "analytic_identity_weight": 0.02
+}
